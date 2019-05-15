@@ -1,2 +1,0 @@
-# vending
-Created with CodeSandbox

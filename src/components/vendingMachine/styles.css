@@ -1,0 +1,61 @@
+.machine {
+  position: absolute;
+  top: 50px;
+  left: calc(50% - 150px);
+  width: 300px;
+  height: 500px;
+  background-color: #84dcc6;
+  border-radius: 10px;
+  perspective: 300px;
+}
+
+.glass {
+  width: 260px;
+  height: 400px;
+  background: linear-gradient(
+    to bottom right,
+    rgba(150, 200, 255, 0.2),
+    rgba(150, 200, 255, 0.7)
+  );
+  overflow: hidden;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  border-radius: 5px;
+  z-index: 5;
+}
+
+.glass:after {
+  position: absolute;
+  content: "";
+  top: -120px;
+  right: -420px;
+  width: 500px;
+  height: 600px;
+  transform: rotate(-20deg);
+  background: linear-gradient(
+    to bottom,
+    rgba(150, 180, 255, 0.2),
+    rgba(255, 255, 255, 0)
+  );
+}
+
+.inner {
+  width: 260px;
+  height: 400px;
+  background-color: black;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.tray-inner {
+  width: 260px;
+  height: 50px;
+  background-color: black;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  border-radius: 5px;
+}
