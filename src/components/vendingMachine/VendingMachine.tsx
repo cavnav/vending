@@ -1,34 +1,34 @@
 import React, { Component } from "react";
 interface IProps {}
+import { List, Icon } from "antd";
+import "./styles.css";
 
-import { List } from "antd";
-const data = ["Напитки", "Сендвичи"];
+const data = [{ id: 1, name: "Напитки" }, { id: 2, name: "Сэндвичи" }];
 
 export class VendingMachine extends Component<IProps> {
-  onClickMenuItem = e => {
-    console.log("clickMenuItem", e);
+  onClickMenuItem = id => () => {
+    console.log("clickMenuItem", id);
   };
 
   render() {
     const {} = this.props;
 
     return (
-      <div>
-        <div className="machine">
-          <div className="inner">
+      <div className="machine">
+        <div className="inner">
+          <div className="menu">
             <List
-              header={<div>Header</div>}
-              footer={<div>Footer</div>}
-              bordered
               dataSource={data}
               renderItem={item => (
-                <List.Item onClick={this.onClickMenuItem}>{item}</List.Item>
+                <List.Item onClick={this.onClickMenuItem(item.id)}>
+                  {item.name}
+                </List.Item>
               )}
             />
           </div>
-          <div className="glass" />
-          <div className="tray-inner">push</div>
         </div>
+        {/*        <div className="glass" /> */}
+        <div className="tray-inner">push</div>
       </div>
     );
   }
