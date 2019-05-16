@@ -47,6 +47,7 @@
   position: absolute;
   top: 20px;
   left: 20px;
+  padding: 10px;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -69,13 +70,17 @@
 }
 
 .ant-list-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 50px;
   text-align: center;
+  align-items: flex-start !important;
   border: initial !important;
   font-size: 24px;
-  color: #ffffff;
+}
+
+.backToMenu,
+.ant-list-item,
+.ant-list-item-meta-title,
+.ant-list-item-meta-description {
+  color: #ffffff !important;
   cursor: default;
 }
