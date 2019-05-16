@@ -84,3 +84,12 @@
   color: #ffffff !important;
   cursor: default;
 }
+
+.tacenter {
+  text-align: center;
+}
+
+.orderIcon {
+  color: #ffffff !important;
+  font-size: 32px;
+}
