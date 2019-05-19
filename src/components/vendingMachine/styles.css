@@ -4,6 +4,7 @@
   left: calc(50% - 150px);
   width: 300px;
   height: 500px;
+  color: #ffffff;
   background-color: #84dcc6;
   border-radius: 10px;
   perspective: 300px;
@@ -108,4 +109,8 @@
 
 .ant-input-number-handler-wrap {
   opacity: 100 !important;
+}
+
+.marg-l-4 {
+  margin-left: 4px;
 }
