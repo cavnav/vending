@@ -86,7 +86,7 @@
   cursor: default;
 }
 
-.tacenter {
+.ta-center {
   text-align: center;
 }
 
@@ -111,6 +111,26 @@
   opacity: 100 !important;
 }
 
-.marg-l-4 {
+.margin-l-4 {
   margin-left: 4px;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.payIcon {
+  font-size: 150px !important;
+}
+
+@keyframes blink {
+  50% {
+    visibility: hidden;
+  }
+}
+
+.tray-text {
+  animation: blink 1s step-end infinite;
 }
