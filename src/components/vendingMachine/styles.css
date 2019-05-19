@@ -93,3 +93,19 @@
   color: #ffffff !important;
   font-size: 32px;
 }
+
+.ant-list-item-action {
+  margin-left: 4px !important;
+}
+
+.ant-input-number {
+  width: 50px !important;
+}
+
+.ant-list-item-action > li {
+  color: white !important;
+}
+
+.ant-input-number-handler-wrap {
+  opacity: 100 !important;
+}
