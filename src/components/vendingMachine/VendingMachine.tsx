@@ -41,6 +41,13 @@ const foods = {
         img: "./assets/drinks/senejskaya.jpg",
         total: 7,
         price: 55
+      },
+      {
+        id: 4,
+        name: "Липецкий бювет, 0.5, негаз",
+        img: "",
+        total: 7,
+        price: 55
       }
     ]
   },
@@ -197,14 +204,14 @@ export class VendingMachine extends Component<IProps> {
                   )}
                 />
               </div>
+              <div className="order-sum display-flex">
+                <MyIcon className="orderIcon" type="icon-receipt" />
+                <span className="flex-g-one font-24 font-800 margin-l-4">
+                  {this.getOrderSum()}р
+                </span>
+                <button onClick={this.onClickPay}>Оплатить</button>
+              </div>
               <div className="order">
-                <div className="ta-center">
-                  <MyIcon className="orderIcon" type="icon-receipt" />
-                  <span>{this.getOrderSum()}р</span>
-                  <button className="margin-l-4" onClick={this.onClickPay}>
-                    Оплатить
-                  </button>
-                </div>
                 <List
                   dataSource={orderItemsVals}
                   renderItem={item => (

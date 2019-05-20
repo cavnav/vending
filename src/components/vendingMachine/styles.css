@@ -3,7 +3,7 @@
   top: 50px;
   left: calc(50% - 150px);
   width: 300px;
-  height: 500px;
+  height: 540px;
   color: #ffffff;
   background-color: #84dcc6;
   border-radius: 10px;
@@ -12,7 +12,7 @@
 
 .glass {
   width: 260px;
-  height: 400px;
+  height: 440px;
   background: linear-gradient(
     to bottom right,
     rgba(150, 200, 255, 0.2),
@@ -32,7 +32,7 @@
   top: -120px;
   right: -420px;
   width: 500px;
-  height: 600px;
+  height: 640px;
   transform: rotate(-20deg);
   background: linear-gradient(
     to bottom,
@@ -43,7 +43,7 @@
 
 .inner {
   width: 260px;
-  height: 400px;
+  height: 440px;
   background-color: black;
   position: absolute;
   top: 20px;
@@ -52,6 +52,7 @@
   border-radius: 5px;
   overflow: hidden;
 }
+
 .tray-inner {
   width: 260px;
   height: 50px;
@@ -70,6 +71,10 @@
   justify-content: center;
 }
 
+.menuItem {
+  height: 154px;
+}
+
 .ant-list-item {
   height: 50px;
   text-align: center;
@@ -84,10 +89,6 @@
 .ant-list-item-meta-description {
   color: #ffffff !important;
   cursor: default;
-}
-
-.ta-center {
-  text-align: center;
 }
 
 .orderIcon {
@@ -135,6 +136,10 @@
   animation: blink 1s step-end infinite;
 }
 
+.order-sum {
+  padding: 30px 0px 10px;
+}
+
 .order .ant-list-item {
   align-items: center !important;
   height: 60px;
@@ -148,6 +153,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  font-size: 12px;
 }
 
 .order .ant-list-item-meta-avatar {
@@ -156,4 +162,41 @@
 
 .order .itemSum {
   flex: 1 0 auto;
+}
+
+.order {
+  height: 180px;
+}
+
+.order,
+.menuItem {
+  overflow-y: auto;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-g-one {
+  flex: 1 0 auto;
+}
+
+.font-24 {
+  font-size: 24px;
+}
+
+.font-800 {
+  font-weight: 800;
+}
+
+.ta-center {
+  text-align: center;
+}
+
+.ta-left {
+  text-align: left;
 }
