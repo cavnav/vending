@@ -86,7 +86,8 @@
 .backToMenu,
 .ant-list-item,
 .ant-list-item-meta-title,
-.ant-list-item-meta-description {
+.ant-list-item-meta-description,
+.ant-list-empty-text {
   color: #ffffff !important;
   cursor: default;
 }
@@ -94,6 +95,10 @@
 .orderIcon {
   color: #ffffff !important;
   font-size: 32px;
+}
+
+.order-sum button {
+  color: #000000;
 }
 
 .ant-list-item-action {
