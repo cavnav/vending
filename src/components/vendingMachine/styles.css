@@ -134,3 +134,7 @@
 .tray-text {
   animation: blink 1s step-end infinite;
 }
+
+.order .ant-list-item {
+  height: 70px;
+}

@@ -26,10 +26,22 @@ const foods = {
           ГОСТ Р 52109-2003
           Состав
           кальций <80, магний <20, калий <20, гидрокарбонаты <250, хлориды <150, сульфаты <50`,
-        img: ""
+        img: "./assets/drinks/saintSpring.jpg"
       },
-      { id: 2, name: "Шишкин лес, 0.4, негаз", img: "", total: 7, price: 50 },
-      { id: 3, name: "Сенежская, 0.5, негаз" }
+      {
+        id: 2,
+        name: "Шишкин лес, 0.4, негаз",
+        img: "./assets/drinks/shiskinLes.jpg",
+        total: 7,
+        price: 50
+      },
+      {
+        id: 3,
+        name: "Сенежская, 0.5, негаз",
+        img: "./assets/drinks/senejskaya.jpg",
+        total: 7,
+        price: 55
+      }
     ]
   },
   sandwiches: {
@@ -146,7 +158,7 @@ export class VendingMachine extends Component<IProps> {
     });
     return (
       <div className="machine">
-        <div className="inner flex-center">
+        <div className="inner">
           {isMenuVisible && (
             <div className="menu">
               <List
@@ -177,7 +189,7 @@ export class VendingMachine extends Component<IProps> {
                       ]}
                     >
                       <List.Item.Meta
-                        avatar={<Avatar src="{item.img}" />}
+                        avatar={<Avatar src={item.img} />}
                         title={item.name}
                         description={false && item.compos}
                       />
