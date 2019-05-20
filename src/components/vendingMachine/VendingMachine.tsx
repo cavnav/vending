@@ -208,22 +208,22 @@ export class VendingMachine extends Component<IProps> {
                 <List
                   dataSource={orderItemsVals}
                   renderItem={item => (
-                    <List.Item
-                      actions={[
-                        <InputNumber
-                          size="small"
-                          min={1}
-                          max={item.total}
-                          value={item.num}
-                        />,
-                        <span>{item.sum}р</span>,
-                        <Icon type="close-circle" />
-                      ]}
-                    >
+                    <List.Item>
                       <List.Item.Meta
                         avatar={<Avatar src="{item.img}" />}
                         title={item.name}
-                        description={false && item.compos}
+                        description={
+                          <div style={{ display: "flex" }}>
+                            <InputNumber
+                              size="small"
+                              min={1}
+                              max={item.total}
+                              value={item.num}
+                            />
+                            <span className="itemSum">{item.sum}р</span>
+                            <Icon type="close-circle" />
+                          </div>
+                        }
                       />
                     </List.Item>
                   )}

@@ -136,5 +136,24 @@
 }
 
 .order .ant-list-item {
-  height: 70px;
+  align-items: center !important;
+  height: 60px;
+}
+
+.order .ant-list-item-meta {
+  align-items: center;
+}
+
+.order .ant-list-item-meta-title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.order .ant-list-item-meta-avatar {
+  margin-right: 4px;
+}
+
+.order .itemSum {
+  flex: 1 0 auto;
 }
