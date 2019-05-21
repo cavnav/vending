@@ -54,7 +54,68 @@ const foods = {
   sandwiches: {
     id: "sandwiches",
     name: "Сэндвичи",
-    items: []
+    items: [
+      {
+        id: 1,
+        name: "Бутерброд с курицей, 80 г",
+        total: 7,
+        exp: "20190707",
+        price: 70,
+        compos: `Тип воды
+          питьевая
+          Вид воды
+          природная
+          Артезианская
+          да
+          Материал упаковки
+          пластик
+          Стандарты производства
+          ГОСТ Р 52109-2003
+          Состав
+          кальций <80, магний <20, калий <20, гидрокарбонаты <250, хлориды <150, сульфаты <50`,
+        img: "./assets/sandwiches/hen.jpg"
+      },
+      {
+        id: 2,
+        name: "Бутерброд с тунцом, 95 г",
+        total: 7,
+        exp: "20190707",
+        price: 90,
+        compos: `Тип воды
+          питьевая
+          Вид воды
+          природная
+          Артезианская
+          да
+          Материал упаковки
+          пластик
+          Стандарты производства
+          ГОСТ Р 52109-2003
+          Состав
+          кальций <80, магний <20, калий <20, гидрокарбонаты <250, хлориды <150, сульфаты <50`,
+        img: "./assets/sandwiches/tuna.jpg"
+      },
+      {
+        id: 3,
+        name: "Лепёшка с зеленью, 175г",
+        total: 7,
+        exp: "20190707",
+        price: 160,
+        compos: `Тип воды
+          питьевая
+          Вид воды
+          природная
+          Артезианская
+          да
+          Материал упаковки
+          пластик
+          Стандарты производства
+          ГОСТ Р 52109-2003
+          Состав
+          кальций <80, магний <20, калий <20, гидрокарбонаты <250, хлориды <150, сульфаты <50`,
+        img: "./assets/sandwiches/tortilla.jpg"
+      }
+    ]
   }
 };
 
@@ -65,6 +126,7 @@ export class VendingMachine extends Component<IProps> {
     isMenuItemsVisible: false,
     isThankForShoppingVisible: false,
     isTrayTextVisible: false,
+    isOrderItemsVisible: true,
     selectedMenuItem: {},
     selectedMenuItemId: "",
     orderItems: {}
@@ -78,10 +140,13 @@ export class VendingMachine extends Component<IProps> {
       isMenuVisible: false,
       isMenuItemsVisible: true,
       isOrderPayVisible: false,
+      isOrderItemsVisible: true,
       isThankForShoppingVisible: false,
       isTrayTextVisible: false
     });
   };
+
+  onClickFoodItem = () => {};
 
   onClickBackMenu = () => {
     this.setState({
@@ -89,7 +154,8 @@ export class VendingMachine extends Component<IProps> {
       isOrderPayVisible: false,
       isMenuItemsVisible: false,
       isThankForShoppingVisible: false,
-      isTrayTextVisible: false
+      isTrayTextVisible: false,
+      isOrderItemsVisible: true
     });
   };
 
@@ -98,23 +164,43 @@ export class VendingMachine extends Component<IProps> {
       const id = this.getOrderItemId(food.id);
       const num = state.orderItems[id] ? state.orderItems[id].num + 1 : 1;
       const sum = num * food.price;
-      return {
-        orderItems: {
-          ...state.orderItems,
-          [id]: {
-            ...food,
-            num,
-            sum
+
+      let newOrderItems;
+
+      if (num === 1) {
+        newOrderItems = {
+          orderItems: {
+            [id]: {
+              ...food,
+              id,
+              num,
+              sum
+            },
+            ...state.orderItems
           }
-        }
-      };
+        };
+      } else {
+        newOrderItems = {
+          orderItems: {
+            ...state.orderItems,
+            [id]: {
+              ...food,
+              id,
+              num,
+              sum
+            }
+          }
+        };
+      }
+
+      return newOrderItems;
     });
   };
 
   onDeleteFood = id => () => {
     this.setState(state => {
       let newOrderItems = { ...state.orderItems };
-      delete newOrderItems[this.getOrderItemId(id)];
+      delete newOrderItems[id];
       return {
         orderItems: newOrderItems
       };
@@ -123,13 +209,12 @@ export class VendingMachine extends Component<IProps> {
 
   onChangeItemNum = food => number => {
     this.setState((state, nextProps) => {
-      const id = this.getOrderItemId(food.id);
       const num = number;
       const sum = num * food.price;
       return {
         orderItems: {
           ...this.state.orderItems,
-          [id]: {
+          [food.id]: {
             ...food,
             num,
             sum
@@ -145,7 +230,8 @@ export class VendingMachine extends Component<IProps> {
       isMenuVisible: false,
       isMenuItemsVisible: false,
       isThankForShoppingVisible: false,
-      isTrayTextVisible: false
+      isTrayTextVisible: false,
+      isOrderItemsVisible: false
     });
   };
 
@@ -154,14 +240,17 @@ export class VendingMachine extends Component<IProps> {
       isOrderPayVisible: false,
       isMenuVisible: false,
       isMenuItemsVisible: false,
-      isThankForShoppingVisible: true
+      isThankForShoppingVisible: true,
+      isOrderItemsVisible: false,
+      orderItems: []
     });
 
     setTimeout(() => {
       this.setState({
         isTrayTextVisible: true,
         isMenuVisible: true,
-        isThankForShoppingVisible: false
+        isThankForShoppingVisible: false,
+        isOrderItemsVisible: true
       });
     }, 5000);
   };
@@ -183,7 +272,8 @@ export class VendingMachine extends Component<IProps> {
       isThankForShoppingVisible,
       isTrayTextVisible,
       orderItems,
-      isOrderPayVisible
+      isOrderPayVisible,
+      isOrderItemsVisible
     } = this.state;
 
     const customizeRenderEmpty = () => (
@@ -197,7 +287,13 @@ export class VendingMachine extends Component<IProps> {
     });
     return (
       <div className="machine">
-        <div className="inner">
+        <div
+          className={`inner ${
+            isOrderPayVisible || isThankForShoppingVisible
+              ? "flex-center"
+              : null
+          }`}
+        >
           {isMenuVisible && (
             <div className="menu">
               <List
@@ -237,6 +333,12 @@ export class VendingMachine extends Component<IProps> {
                   )}
                 />
               </div>
+            </div>
+          )}
+          {isOrderItemsVisible && (
+            <div className="order-box">
+              <hr />
+              <div className="ta-center">Ваш заказ</div>
               <div className="order-sum display-flex">
                 <MyIcon className="orderIcon" type="icon-receipt" />
                 <span className="flex-g-one font-24 font-800 margin-l-4">
