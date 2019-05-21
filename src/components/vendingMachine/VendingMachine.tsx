@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 interface IProps {}
 import { ConfigProvider, Spin, InputNumber, List, Avatar, Icon } from "antd";
+import { FoodDetails } from "./FoodDetails";
+
 import "./styles.css";
 
 const foods = {
@@ -127,9 +129,11 @@ export class VendingMachine extends Component<IProps> {
     isThankForShoppingVisible: false,
     isTrayTextVisible: false,
     isOrderItemsVisible: true,
+    isFoodItemComposVisible: false,
     selectedMenuItem: {},
     selectedMenuItemId: "",
-    orderItems: {}
+    orderItems: {},
+    selectedFoodItem: {}
   };
 
   onClickMenuItem = id => () => {
@@ -146,7 +150,12 @@ export class VendingMachine extends Component<IProps> {
     });
   };
 
-  onClickFoodItem = () => {};
+  onClickFoodItem = food => () => {
+    this.setState({
+      isFoodItemComposVisible: true,
+      selectedFoodItem: food
+    });
+  };
 
   onClickBackMenu = () => {
     this.setState({
@@ -224,6 +233,13 @@ export class VendingMachine extends Component<IProps> {
     });
   };
 
+  onCloseFoodDetails = () => {
+    this.setState({
+      isFoodItemComposVisible: false,
+      selectedFoodItem: {}
+    });
+  };
+
   onClickPay = () => {
     this.setState({
       isOrderPayVisible: true,
@@ -273,7 +289,8 @@ export class VendingMachine extends Component<IProps> {
       isTrayTextVisible,
       orderItems,
       isOrderPayVisible,
-      isOrderItemsVisible
+      isOrderItemsVisible,
+      isFoodItemComposVisible
     } = this.state;
 
     const customizeRenderEmpty = () => (
@@ -311,27 +328,40 @@ export class VendingMachine extends Component<IProps> {
               <span className="backToMenu" onClick={this.onClickBackMenu}>
                 Меню
               </span>
-              <div className="menuItem">
-                <List
-                  dataSource={selectedMenuItem}
-                  renderItem={item => (
-                    <List.Item
-                      actions={[
-                        <Icon
-                          type="shopping-cart"
-                          className="font-24"
-                          onClick={this.onAddFoodToCart(item)}
-                        />
-                      ]}
-                    >
-                      <List.Item.Meta
-                        avatar={<Avatar src={item.img} />}
-                        title={item.name}
-                        description={false && item.compos}
-                      />
-                    </List.Item>
-                  )}
+              {isFoodItemComposVisible && (
+                <Icon
+                  type="close-circle"
+                  className="foodDetailsCloseBtn font-32"
+                  onClick={this.onCloseFoodDetails}
                 />
+              )}
+              <div className="menuItem">
+                {isFoodItemComposVisible && (
+                  <FoodDetails item={this.state.selectedFoodItem} />
+                )}
+                {!isFoodItemComposVisible && (
+                  <List
+                    dataSource={selectedMenuItem}
+                    renderItem={item => (
+                      <List.Item
+                        actions={[
+                          <Icon
+                            type="shopping-cart"
+                            className="font-24"
+                            onClick={this.onAddFoodToCart(item)}
+                          />
+                        ]}
+                      >
+                        <List.Item.Meta
+                          avatar={<Avatar src={item.img} />}
+                          title={item.name}
+                          description={false && item.compos}
+                          onClick={this.onClickFoodItem(item)}
+                        />
+                      </List.Item>
+                    )}
+                  />
+                )}
               </div>
             </div>
           )}

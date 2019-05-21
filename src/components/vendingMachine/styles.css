@@ -192,6 +192,9 @@
 .font-24 {
   font-size: 24px;
 }
+.font-32 {
+  font-size: 32px;
+}
 
 .font-800 {
   font-weight: 800;
@@ -203,4 +206,12 @@
 
 .ta-left {
   text-align: left;
+}
+
+.foodDetailsCloseBtn {
+  position: absolute;
+  top: 32px;
+  right: 34px;
+  z-index: 1000;
+  mix-blend-mode: difference;
 }
