@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 interface IProps {}
-import { ConfigProvider, Spin, InputNumber, List, Avatar, Icon } from "antd";
+import {
+  Select,
+  ConfigProvider,
+  Spin,
+  InputNumber,
+  List,
+  Avatar,
+  Icon
+} from "antd";
 import { FoodDetails } from "./FoodDetails";
 
 import "./styles.css";
 
+const Option = Select.Option;
 const foods = {
   beverages: {
     id: "beverages",
@@ -136,8 +145,7 @@ export class VendingMachine extends Component<IProps> {
     selectedFoodItem: {}
   };
 
-  onClickMenuItem = id => () => {
-    console.log(id, foods[id].items);
+  onChangeMenuItem = id => {
     this.setState({
       selectedMenuItem: foods[id].items,
       selectedMenuItemId: id,
@@ -148,6 +156,10 @@ export class VendingMachine extends Component<IProps> {
       isThankForShoppingVisible: false,
       isTrayTextVisible: false
     });
+  };
+
+  onClickMenuItem = id => () => {
+    this.onChangeMenuItem(id);
   };
 
   onClickFoodItem = food => () => {
@@ -283,6 +295,7 @@ export class VendingMachine extends Component<IProps> {
   render() {
     const {
       selectedMenuItem,
+      selectedMenuItemId,
       isMenuVisible,
       isMenuItemsVisible,
       isThankForShoppingVisible,
@@ -325,9 +338,21 @@ export class VendingMachine extends Component<IProps> {
           )}
           {isMenuItemsVisible && (
             <div>
-              <span className="backToMenu" onClick={this.onClickBackMenu}>
-                Меню
-              </span>
+              {
+                <Select
+                  className="margin-b-8"
+                  defaultValue={this.state.selectedMenuItemId}
+                  onChange={this.onChangeMenuItem}
+                >
+                  {Object.values(foods).map(food => {
+                    return (
+                      <Option key={food.id} value={food.id}>
+                        {food.name}
+                      </Option>
+                    );
+                  })}
+                </Select>
+              }
               {isFoodItemComposVisible && (
                 <Icon
                   type="close-circle"
