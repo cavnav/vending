@@ -318,10 +318,8 @@ export class VendingMachine extends Component<IProps> {
     return (
       <div className="machine">
         <div
-          className={`inner ${
-            isOrderPayVisible || isThankForShoppingVisible
-              ? "flex-center"
-              : null
+          className={`inner display-flex flex-column ${
+            isOrderPayVisible || isThankForShoppingVisible ? "flex-center" : ""
           }`}
         >
           {isMenuVisible && (
@@ -337,10 +335,10 @@ export class VendingMachine extends Component<IProps> {
             </div>
           )}
           {isMenuItemsVisible && (
-            <div>
+            <div className="categoryItemBox flex-g-one">
               {
                 <Select
-                  className="margin-b-8"
+                  className="selectCategories"
                   defaultValue={this.state.selectedMenuItemId}
                   onChange={this.onChangeMenuItem}
                 >
@@ -360,7 +358,7 @@ export class VendingMachine extends Component<IProps> {
                   onClick={this.onCloseFoodDetails}
                 />
               )}
-              <div className="menuItem">
+              <div className="categoryItems">
                 {isFoodItemComposVisible && (
                   <FoodDetails item={this.state.selectedFoodItem} />
                 )}
