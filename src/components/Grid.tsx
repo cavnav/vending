@@ -1,9 +1,10 @@
 import React from "react";
 import { Cell } from "./Cell";
+import colors from "../colors";
 const data1 = {
   a1: {
-    type: "txt",
-    val: 1
+    type: "color",
+    val: "'#FF0000'"
   },
   a2: {
     type: "txt",
@@ -14,8 +15,8 @@ const data1 = {
     val: 3
   },
   b2: {
-    type: "txt",
-    val: "'1'"
+    type: "color",
+    val: "'#FFFF00'"
   }
 };
 
@@ -97,19 +98,19 @@ export class Grid extends React.Component {
       return res;
     }, "");
 
-    let res = `var res = ${js}; \n`;
+    let colorsTemp = colors;
+    let res = `console.log(${colorsTemp}); \n`;
+    res += `var res = ${js}; \n`;
     res += `if (res.constructor === string) { \n`;
-      res += `res = res.trim().split(' '); \n`;
-      res += `res = res.reduce((res, next) => culori.interpolate([res, next])(0.5)); \n`;
-      res += `res = res.trim().split(' '); \n`;
+    res += `res = res.trim().split(' '); \n`;
+    res += `res = colors.mix(res, {result: 'rgb'}); \n`;
     res += `}; \n`;
 
-    return eval(evalContext + js);
+    console.log("res", evalContext + res);
+    return eval(evalContext + res);
 
-    //a1 = a1 + a2 = '_red_yellow_'
-    // culori.interpolate([a1, a2])(0.5)
     function getValues(key) {
-      ret
+      ret;
     }
   };
 }
