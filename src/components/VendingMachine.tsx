@@ -4,6 +4,7 @@ import { ConfigProvider, Spin, InputNumber, List, Avatar, Icon } from "antd";
 import { FoodDetails } from "./FoodDetails";
 import { Menu } from "./Menu";
 import { SelectorFoodCategories } from "./SelectorFoodCategories";
+import { FoodCategoryItems } from "./FoodCategoryItems";
 
 import "./styles.css";
 
@@ -338,26 +339,10 @@ export class VendingMachine extends Component<IProps> {
                   <FoodDetails item={this.state.selectedFoodItem} />
                 )}
                 {!isFoodItemComposVisible && (
-                  <List
-                    dataSource={selectedMenuItem}
-                    renderItem={item => (
-                      <List.Item
-                        actions={[
-                          <Icon
-                            type="shopping-cart"
-                            className="font-24"
-                            onClick={this.onAddFoodToCart(item)}
-                          />
-                        ]}
-                      >
-                        <List.Item.Meta
-                          avatar={<Avatar src={item.img} />}
-                          title={item.name}
-                          description={false && item.compos}
-                          onClick={this.onClickFoodItem(item)}
-                        />
-                      </List.Item>
-                    )}
+                  <FoodCategoryItems
+                    category={selectedMenuItem}
+                    onAddFoodToCart={this.onAddFoodToCart}
+                    onClickFoodItem={this.onClickFoodItem}
                   />
                 )}
               </div>
@@ -432,7 +417,7 @@ export class VendingMachine extends Component<IProps> {
           )}
         </div>
 
-        {/*        <div className="glass" /> */}
+        <div className="glass" />
         <div className="tray-inner flex-center">
           <span className={`${isTrayTextVisible && "tray-text"}`}>
             Заберите заказ

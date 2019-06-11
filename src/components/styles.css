@@ -1,0 +1,18 @@
+#grid {
+  display: grid;
+  grid-gap: 2vw;
+}
+#grid > div {
+  font-size: 3vw;
+  padding: 0.5em;
+  background: gold;
+  text-align: center;
+}
+
+.gridTemplateRows-2 {
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.gridTemplateColumns-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
