@@ -4,7 +4,7 @@ import colors from "../colors";
 const data1 = {
   a1: {
     type: "color",
-    val: "'#FF0000'"
+    val: "#FF0000"
   },
   a2: {
     type: "txt",
@@ -16,7 +16,7 @@ const data1 = {
   },
   b2: {
     type: "color",
-    val: "'#FFFF00'"
+    val: "#FFFF00"
   }
 };
 
@@ -67,6 +67,7 @@ export class Grid extends React.Component {
       try {
         myEval = this.myEval(data, command);
       } catch (e) {
+        console.log(e);
         this.setState({
           command: "ошибка"
         });
@@ -91,19 +92,22 @@ export class Grid extends React.Component {
 
   myEval = (context, js) => {
     let keys = Object.keys(context);
-    let vals = Object.values(context).map(i => i.val);
+    let vals = Object.values(context).map(i => {
+      return i.val.constructor === String ? `"${i.val}"` : i.val;
+    });
     let evalContext = keys.reduce((res, next, i) => {
       res += `var ${next}=${vals[i]};\n`;
       console.log(res);
       return res;
     }, "");
 
-    let colorsTemp = colors;
-    let res = `console.log(${colorsTemp}); \n`;
+    let colorsLib = colors;
+    let res = "";
     res += `var res = ${js}; \n`;
-    res += `if (res.constructor === string) { \n`;
-    res += `res = res.trim().split(' '); \n`;
-    res += `res = colors.mix(res, {result: 'rgb'}); \n`;
+    res += `if (res.constructor === String) { \n`;
+    res += `res = res.trim().split('#').filter(i=>i); \n`;
+    res += `console.log(res); \n`;
+    res += `res = '#' + colorsLib.mix(res, {result: 'rgb'}); \n`;
     res += `}; \n`;
 
     console.log("res", evalContext + res);
